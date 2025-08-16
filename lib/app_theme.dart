@@ -24,6 +24,21 @@ class AppTheme {
         fontSize: 24,
         fontWeight: FontWeight.w500,
       ),
+      titleMedium: TextStyle(
+        color: white,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: TextStyle(
+        color: white,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: grey,
+      ),
     ),
   );
 }

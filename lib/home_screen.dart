@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/categories/categories_view.dart';
+import 'package:news_app/news/news_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: CategoriesView(),
+      body: NewsView(),
     );
   }
 }
