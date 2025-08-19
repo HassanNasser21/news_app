@@ -3,7 +3,8 @@ import 'package:news_app/categories/categoriey_item.dart';
 import 'package:news_app/models/categorey_model.dart';
 
 class CategoriesView extends StatelessWidget {
-  const CategoriesView({super.key});
+  void Function(CategoreyModel) oncategoreySelected;
+   CategoriesView({required this.oncategoreySelected});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,14 @@ class CategoriesView extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.only(top: 16),
-              itemBuilder: (_, index) =>
-                  CategorieyItem(categorey: CategoreyModel.categories[index]),
+              itemBuilder: (_, index) => GestureDetector(
+                onTap: () {
+                  oncategoreySelected(CategoreyModel.categories[index]);
+                },
+                child: CategorieyItem(
+                  categorey: CategoreyModel.categories[index],
+                ),
+              ),
               separatorBuilder: (_, _) => SizedBox(height: 16),
               itemCount: CategoreyModel.categories.length,
             ),

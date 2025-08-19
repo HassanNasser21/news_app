@@ -34,6 +34,11 @@ class AppTheme {
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
+      labelLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
       labelSmall: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w500,
