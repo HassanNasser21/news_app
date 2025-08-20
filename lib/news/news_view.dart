@@ -6,8 +6,10 @@ import 'package:news_app/models/source_reseponse/source.dart';
 import 'package:news_app/models/source_reseponse/source_reseponse.dart';
 import 'package:news_app/news/new_item.dart';
 import 'package:news_app/news/tap_item.dart';
+import 'package:news_app/provieders/settings_provider.dart';
 import 'package:news_app/widgets/error_indecatore.dart';
 import 'package:news_app/widgets/loading_indecatore.dart';
+import 'package:provider/provider.dart';
 
 class NewsView extends StatefulWidget {
   String categoryId;
@@ -24,6 +26,7 @@ class _NewsViewState extends State<NewsView> {
   );
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return FutureBuilder(
       future: getSourcesFuture,
       builder: (context, snapshot) {
@@ -39,7 +42,9 @@ class _NewsViewState extends State<NewsView> {
                 length: sources.length,
                 child: TabBar(
                   isScrollable: true,
-                  indicatorColor: AppTheme.white,
+                  indicatorColor: settingsProvider.isLight
+                      ? AppTheme.black
+                      : AppTheme.white,
                   dividerColor: Colors.transparent,
                   tabAlignment: TabAlignment.start,
                   labelPadding: EdgeInsetsDirectional.only(start: 16),

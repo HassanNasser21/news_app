@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/app_theme.dart';
 import 'package:news_app/models/source_reseponse/source.dart';
+import 'package:news_app/provieders/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class TapItem extends StatelessWidget {
   Source source;
@@ -9,9 +12,16 @@ class TapItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Text(
       source.name ?? '',
-      style: isSelected ? textTheme.titleMedium : textTheme.titleSmall,
+      style: settingsProvider.isLight
+          ? (isSelected
+                ? textTheme.titleMedium!.copyWith(color: AppTheme.black)
+                : textTheme.titleSmall!.copyWith(color: AppTheme.black))
+          : isSelected
+          ? textTheme.titleMedium!.copyWith(color: AppTheme.white)
+          : textTheme.titleSmall!.copyWith(color: AppTheme.white),
     );
   }
 }
