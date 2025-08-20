@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/app_theme.dart';
+import 'package:news_app/provieders/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
   VoidCallback onGoToHome;
@@ -19,6 +21,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     Size screenSize = MediaQuery.of(context).size;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       color: AppTheme.black,
       width: screenSize.width * 0.7,
@@ -48,7 +51,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 children: [
                   SvgPicture.asset('assets/icons/home.svg'),
                   SizedBox(width: 8),
-                  Text('Go To Home', style: textTheme.labelLarge),
+                  Text('Go To Home', style: textTheme.labelLarge!.copyWith(color: 
+                    settingsProvider.isLight ? AppTheme.white   : AppTheme.white
+                  )),
                 ],
               ),
             ),
@@ -63,8 +68,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 Text('Theme', style: textTheme.labelLarge),
                 Spacer(),
                 Switch(
-                  value: true,
-                  onChanged: (_) {},
+                  value: settingsProvider.isLight,
+                  onChanged: (isLight) {
+                    settingsProvider.changeTheme(
+                      isLight ? ThemeMode.light : ThemeMode.dark,
+                    );
+                  },
                   activeColor: AppTheme.white,
                 ),
               ],
