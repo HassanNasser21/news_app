@@ -9,6 +9,7 @@ import 'package:news_app/news/tap_item.dart';
 import 'package:news_app/provieders/settings_provider.dart';
 import 'package:news_app/widgets/error_indecatore.dart';
 import 'package:news_app/widgets/loading_indecatore.dart';
+import 'package:news_app/widgets/news_sheet.dart';
 import 'package:provider/provider.dart';
 
 class NewsView extends StatefulWidget {
@@ -20,6 +21,20 @@ class NewsView extends StatefulWidget {
 }
 
 class _NewsViewState extends State<NewsView> {
+  void _showBottomSheet(BuildContext context, News news) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: NewsSheet(news: news),
+      ),
+    );
+  }
+
   int currentIndex = 0;
   late Future<SourceReseponse> getSourcesFuture = ApiServices.getSources(
     widget.categoryId,
@@ -77,10 +92,14 @@ class _NewsViewState extends State<NewsView> {
                       List<News> newsList = snapshot.data?.articles ?? [];
                       return ListView.separated(
                         padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-                        itemBuilder: (_, index) =>
-                            NewItem(news: newsList[index]),
+                        itemBuilder: (_, index) => GestureDetector(
+                          onTap: () {
+                            _showBottomSheet(context, newsList[index]);
+                          },
+                          child: NewItem(news: newsList[index]),
+                        ),
                         separatorBuilder: (_, _) => SizedBox(height: 16),
-                        itemCount: 1,
+                        itemCount: 5,
                       );
                     }
                   },
