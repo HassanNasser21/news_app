@@ -9,12 +9,21 @@ class CategoreyModel {
     required this.imageName,
   });
   static List<CategoreyModel> categories = [
-    CategoreyModel(id: '3', name: 'General', imageName: 'general'),
-    CategoreyModel(id: '1', name: 'Business', imageName: 'business'),
-    CategoreyModel(id: '6', name: 'Sports', imageName: 'sports'),
-    CategoreyModel(id: '4', name: 'Health', imageName: 'health'),
-    CategoreyModel(id: '7', name: 'Technology', imageName: 'technology'),
-    CategoreyModel(id: '2', name: 'Entertainment', imageName: 'entertainment'),
-    CategoreyModel(id: '5', name: 'Science', imageName: 'science'),
+    //business entertainment general health science sports technology
+    CategoreyModel(id: 'general', name: 'General', imageName: 'general'),
+    CategoreyModel(id: 'business', name: 'Business', imageName: 'business'),
+    CategoreyModel(id: 'sports', name: 'Sports', imageName: 'sports'),
+    CategoreyModel(id: 'health', name: 'Health', imageName: 'health'),
+    CategoreyModel(
+      id: 'technology',
+      name: 'Technology',
+      imageName: 'technology',
+    ),
+    CategoreyModel(
+      id: 'entertainment',
+      name: 'Entertainment',
+      imageName: 'entertainment',
+    ),
+    CategoreyModel(id: 'science', name: 'Science', imageName: 'science'),
   ];
 }

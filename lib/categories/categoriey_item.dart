@@ -10,7 +10,7 @@ class CategorieyItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       child: Image.asset(
-        'assets/images/${categorey.imageName }.png',
+        'assets/images/${categorey.imageName}.png',
         fit: BoxFit.fill,
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.25,
