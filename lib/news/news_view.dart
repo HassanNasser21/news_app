@@ -21,7 +21,7 @@ class NewsView extends StatefulWidget {
 }
 
 class _NewsViewState extends State<NewsView> {
-  void _showBottomSheet(BuildContext context, News news) {
+static  void _showBottomSheet(BuildContext context, News news) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: false,

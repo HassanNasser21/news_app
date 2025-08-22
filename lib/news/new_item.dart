@@ -27,21 +27,10 @@ class NewItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
               news.urlToImage ??
-                  'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+                 'https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg',
               fit: BoxFit.fill,
               width: double.infinity,
               height: MediaQuery.sizeOf(context).height * 0.25,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  child: Icon(
-                    Icons.broken_image,
-                    color: AppTheme.grey,
-                    size: 40,
-                  ),
-                  alignment: Alignment.center,
-                  color: AppTheme.white,
-                );
-              },
             ),
           ),
           SizedBox(height: 10),
