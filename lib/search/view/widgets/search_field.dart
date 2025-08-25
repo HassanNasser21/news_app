@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
-import 'package:news_app/provieders/settings_provider.dart';
+import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/shared/provieders/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 class SearchField extends StatelessWidget {

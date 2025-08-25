@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
-import 'package:news_app/models/news_response/news.dart';
-import 'package:news_app/provieders/settings_provider.dart';
+import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/news/data/models/news.dart';
+import 'package:news_app/shared/provieders/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -31,6 +31,13 @@ class NewItem extends StatelessWidget {
               fit: BoxFit.fill,
               width: double.infinity,
               height: MediaQuery.sizeOf(context).height * 0.25,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  child: Icon(Icons.broken_image, color: AppTheme.grey, size: 40),
+                  alignment: Alignment.center,
+                  color: AppTheme.white,
+                );
+              },
             ),
           ),
           SizedBox(height: 10),

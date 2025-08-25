@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
+import 'package:news_app/shared/app_theme.dart';
 
 class ErrorIndecatore extends StatelessWidget {
-  const ErrorIndecatore({super.key});
+  String errormessage ;
+   ErrorIndecatore(  [this.errormessage='something went wrong']);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Something went wrong!',
+        '$errormessage',
         style: TextStyle(color: AppTheme.white),
       ),
     );
