@@ -11,7 +11,7 @@ class SearchViewModel with ChangeNotifier {
 
   Future<void> getSearchNews(String value, int pagesize, int page) async {
     isloading = true;
-    notifyListeners();
+   notifyListeners();
     try {
       NewsResponse response = await searchDataSource.getSearchNews(
         value,
@@ -22,7 +22,11 @@ class SearchViewModel with ChangeNotifier {
       if (response.status == 'ok' &&
           response.articles != null &&
           response.articles!.isNotEmpty) {
-        searchNewsList = response.articles!;
+        if (page == 1) {
+          searchNewsList = response.articles!;
+        } else {
+          searchNewsList.addAll(response.articles!);
+        }
         errormessage = null;
       } else {
         searchNewsList = [];
@@ -33,6 +37,11 @@ class SearchViewModel with ChangeNotifier {
       errormessage = error.toString();
     }
     isloading = false;
+    notifyListeners();
+  }
+
+  void resetSearch() {
+    searchNewsList = [];
     notifyListeners();
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/api_services.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/news/data/models/news.dart';
-import 'package:news_app/models/source_reseponse/source.dart';
 import 'package:news_app/news/view/widgets/new_item.dart';
 import 'package:news_app/news/view_model/news_view_model.dart';
+import 'package:news_app/sources/data/models/source.dart';
 import 'package:news_app/sources/view/widgets/tap_item.dart';
 import 'package:news_app/shared/provieders/settings_provider.dart';
 import 'package:news_app/sources/view_model/source_view_model.dart';

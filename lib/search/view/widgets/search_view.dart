@@ -42,6 +42,19 @@ class _SearchViewState extends State<SearchView> {
   ScrollController scrollController = ScrollController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        currentpage++;
+        searchViewModel.getSearchNews(searchValue, pageSize, currentpage);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -52,9 +65,10 @@ class _SearchViewState extends State<SearchView> {
           onChanged: (value) {
             setState(() {
               searchValue = value;
+              currentpage = 1;
             });
-                searchViewModel.getSearchNews(searchValue, pageSize, currentpage);
-
+            searchViewModel.resetSearch();
+            searchViewModel.getSearchNews(searchValue, pageSize, currentpage);
           },
         ),
 
