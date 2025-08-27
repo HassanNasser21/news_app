@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:news_app/news/data/models/news.dart';
 import 'package:news_app/news/data/repositories/news_repository.dart';
+import 'package:news_app/shared/service_locator.dart';
 
 class NewsViewModel with ChangeNotifier {
-  NewsRepository repository = NewsRepository();
+  NewsRepository repository = NewsRepository(ServiceLocator.newsDataSource);
   List<News> newsList = [];
   String? errormessage;
   bool isloading = false;
