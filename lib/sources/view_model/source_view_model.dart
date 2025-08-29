@@ -1,21 +1,25 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/shared/service_locator.dart';
 import 'package:news_app/sources/data/models/source.dart';
 import 'package:news_app/sources/data/repositories/source_repository.dart';
+import 'package:news_app/sources/view_model/sources_states.dart';
 
-class SourceViewModel with ChangeNotifier {
-  SourceRepository repository = SourceRepository(ServiceLocator.sourcesdataSource);
-  List<Source> sources = [];
-  String? errormessage;
-  bool isloading = false;
+class SourceViewModel extends Cubit<SourcesState> {
+  late SourceRepository repository;
+  SourceViewModel() : super(InitialSourcesState()) {
+    repository = SourceRepository(ServiceLocator.sourcesdataSource);
+  }
+
   Future<void> getSources(String categoryId) async {
+    emit(getSourcesLoading());
     try {
-      isloading = true;
-      sources = await repository.getSources(categoryId);
+      List<Source> sources = await repository.getSources(categoryId);
+      emit(getSourcesSuccess(sources));
     } catch (error) {
-      errormessage = error.toString();
+      emit(getSourcesError(error.toString()));
     }
-    isloading = false;
-    notifyListeners();
   }
 }

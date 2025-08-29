@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/news/view_model/news_states.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/news/data/models/news.dart';
 import 'package:news_app/news/view/widgets/new_item.dart';
@@ -10,6 +12,7 @@ import 'package:news_app/sources/view_model/source_view_model.dart';
 import 'package:news_app/shared/widgets/error_indecatore.dart';
 import 'package:news_app/shared/widgets/loading_indecatore.dart';
 import 'package:news_app/shared/widgets/news_sheet.dart';
+import 'package:news_app/sources/view_model/sources_states.dart';
 import 'package:provider/provider.dart';
 
 class NewsView extends StatefulWidget {
@@ -52,17 +55,21 @@ class _NewsViewState extends State<NewsView> {
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
-    return ChangeNotifierProvider(
+    return BlocProvider(
       create: (_) => sourceViewModel,
-      child: Consumer<SourceViewModel>(
-        builder: (_, viewmodel, _) {
-          if (viewmodel.isloading) {
+      child: BlocBuilder<SourceViewModel, SourcesState>(
+        builder: (_, state) {
+          if (state is getSourcesLoading) {
             return LoadingIndecatore();
-          } else if (viewmodel.errormessage != null) {
-            return ErrorIndecatore(viewmodel.errormessage!);
-          } else {
-            List<Source> sources = viewmodel.sources;
-            newsViewModel.getNews(viewmodel.sources[currentIndex].id!,pageSize,currentPage);
+          } else if (state is getSourcesError) {
+            return ErrorIndecatore(state.errormessage!);
+          } else if (state is getSourcesSuccess) {
+            List<Source> sources = state.sources;
+            newsViewModel.getNews(
+              state.sources[currentIndex].id!,
+              pageSize,
+              currentPage,
+            );
             return Column(
               children: [
                 DefaultTabController(
@@ -92,16 +99,16 @@ class _NewsViewState extends State<NewsView> {
                 ),
 
                 Expanded(
-                  child: ChangeNotifierProvider(
+                  child: BlocProvider(
                     create: (_) => newsViewModel,
-                    child: Consumer<NewsViewModel>(
-                      builder: (_, viewmodel, __) {
-                        if (viewmodel.isloading) {
+                    child: BlocBuilder<NewsViewModel, NewsState>(
+                      builder: (_, state) {
+                        if (state is GetNewsLoading) {
                           return LoadingIndecatore();
-                        } else if (viewmodel.errormessage != null) {
-                          return ErrorIndecatore(viewmodel.errormessage!);
-                        } else {
-                          List<News> newsList = viewmodel.newsList;
+                        } else if (state is GetNewsError) {
+                          return ErrorIndecatore(state.errormessage);
+                        } else if (state is GetNewsSuccess) {
+                          List<News> newsList = state.newslist;
                           // currentPage++;
                           return ListView.separated(
                             controller: scrollController,
@@ -119,6 +126,8 @@ class _NewsViewState extends State<NewsView> {
                             separatorBuilder: (_, _) => SizedBox(height: 16),
                             itemCount: newsList.length,
                           );
+                        } else {
+                          return SizedBox();
                         }
                       },
                     ),
@@ -126,6 +135,8 @@ class _NewsViewState extends State<NewsView> {
                 ),
               ],
             );
+          } else {
+            return SizedBox();
           }
         },
       ),
